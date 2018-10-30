@@ -48,6 +48,7 @@ ipcRenderer.on("dragend", (event, arg) => {
         t += '<td class="text-right">' + arg.RobotMaxWeight + '</td>';
         t += '<td class="text-right">' + arg.RobotMaxModelNum + '</td>';
         t += '<td class="text-center">' + arg.class + '</td>';
+        t += '<td class="text-center">' + (arg.deletePng ? "已删" : "--") + '</td>';
         t += "</tr>"
         $("#configTable").append(t);
     }

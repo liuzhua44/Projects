@@ -9,7 +9,7 @@ let mainWindow
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 1600, height: 600 })
+    mainWindow = new BrowserWindow({ width: 1600, height: 1000 })
 
     // and load the index.html of the app.
     mainWindow.loadFile('index.html')
@@ -59,50 +59,67 @@ ipcMain.on('ondragstart', (event, filePath) => {
         file: filePath,
         icon: '/path/to/icon.png'
     })
-
 })
 
 ipcMain.on("ondrag", (event, filePath) => {
-    console.log("ipcMain drag " + filePath);
     fs.stat(filePath, function (err, stat) {
         if (stat.isDirectory()) {
-            var n1 = filePath.lastIndexOf("/")
-            var sceneName = filePath.slice(n1+1);
-            console.log(sceneName);
             var aryFiles = fs.readdirSync(filePath);
-            console.log(aryFiles);
+            var info;
+            // 是否场景目录
+            if (aryFiles.indexOf('config.lua') != -1
+                && aryFiles.indexOf('world.xml') != -1) {
+                info = getInfo(filePath);
+                info.isScene = true;
+            }
+            else {
+                info.isScene = false;
+            }
+            event.sender.send("dragend", info);
+        }
+    })
 
-            for (var i = 0; i < aryFiles.length; i++) {
-                if (aryFiles[i] == "config.lua") {
-                    var sceneConfig = fs.readFileSync(filePath + "/config.lua", 'utf8');
-                    var config = getConfig(sceneConfig);
-                    console.log(config);
-                    event.sender.send(config)
+})
 
-                    // console.log("find config.lua")
-                    // var sceneConfig = fs.readFileSync(filePath + "/config.lua", 'utf8');
-                    // var d1 = sceneConfig.lastIndexOf("比赛机会次数")
-                    // var d2 = sceneConfig.indexOf("=", d1);
-                    // var d3 = sceneConfig.indexOf(",", d2);
-                    // var v = sceneConfig.slice(d2 + 1, d3);
-                    // console.log(d1, d2, d3, v);
-                }
+// 获取场景的所有信息
+function getInfo(dirPath) {
+    var info = {};
+    // 场景名称
+    info.sceneName = dirPath.slice(dirPath.lastIndexOf("\\") + 1);
+    // 场景配置
+    var item = ["总时间", "任务限时", "比赛机会次数", "任务小结束提交次数",
+        "IsUseDefaultRobot", "IsUseDefaultCtl",
+        "RobotMaxSize", "RobotMaxWeight", "RobotMaxModelNum"];
+    var configFile = fs.readFileSync(dirPath + "/config.lua", 'utf8');
+    for (var i = 0; i < item.length; i++) {
+        info[item[i]] = getKeyValue(configFile, item[i]);
+    }
+    // 默认机器人和控制程序名称
+    if (info.IsUseDefaultRobot != "false") {
+        info.DefaultRobotName = fs.readdirSync(dirPath + "\\robot")[0];
+    }
+    if (info.IsUseDefaultCtl != "false") {
+        info.DefaultVplName = fs.readdirSync(dirPath + "\\vpl")[0];
+    }
+    // 分析用途，练习、模拟、竞赛、竞赛Python
+    if (info.IsUseDefaultRobot=="true") {
+        if (info["比赛机会次数"] > 5) {
+            info.class = "模拟";
+        }
+        else {
+            if (info.DefaultVplName.indexOf("py") == -1) {
+                info.class = "竞赛";
+            }
+            else {
+                info.class = "竞赛 Python";
             }
         }
-        // console.log(err);
-        // console.log("is file:" + stat.isFile());
-        // console.log("is directory:" + stat.isDirectory());
-    })
-})
-function getConfig(strFile) {
-    var list = [
-        "总时间", "任务限时", "比赛机会次数", "任务小结束提交次数", "IsUseDefaultRobot", "IsUseDefaultCtl", "RobotMaxSize", "RobotMaxWeight", "RobotMaxModelNum"
-    ];
-    var config = {};
-    for (var i = 0; i < list.length; i++) {
-        config[list[i]] = getKeyValue(strFile, list[i]);
     }
-    return config;
+    else {
+        info.class = "练习";
+    }
+
+    return info;
 }
 function getKeyValue(strFile, strKey) {
     var d1 = strFile.lastIndexOf(strKey)

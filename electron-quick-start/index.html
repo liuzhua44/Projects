@@ -6,49 +6,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Hello World!</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <style type="text/css">
+    body {
+      font-family: Arial, "Microsoft YaHei";
+    }
+  </style>
 </head>
 
 <body>
   <div class="container">
     <div class="row">
-      <h1>这是我的第一个 Electron</h1><br />
-      <div id="drag" style="width:100%;height:200px;" class="row align-items-center text-center  alert alert-success">
-        <h3 class="col">文件拖放到这里</h3>
-        <!-- <a href="#" id="drag" style="width:300;height:200px;background-color:#f00;display:block;">item</a> -->
-      </div>
+      <h5>查看场景配置</h1><br />
+        <div id="drag" style="width:100%;height:200px;" class="row align-items-center text-center  alert alert-success">
+          <h2 class="col">将<span class="text-danger">开发版场景目录</span>拖放到这里查看配置<br /><small>可一次多拖多个目录</small></h3>
 
-      <!-- <div id="fileList">
-        <span id="path"></span>
-      </div> -->
-    </div>
-    <div id="" class="p-3 mb-2 bg-success">
-      <h3>文件列表</h3><br />
-      <div class="col">
-        <ol id="fileList">
-          <!-- <li>C:\Work\irobotqv2.0\client\irobotqv2.0_app</li>
-          <li>C:\Work\irobotqv2.0\client\irobotqv2.0_app</li> -->
-        </ol>
-      </div>
+        </div>
     </div>
     <div>
-      <table class="table">
+      <div class="text-right">
+        <span>* 可能用途仅作为参考</span>
+      </div>
+      <table class="table table-hover table-sm">
         <thead>
           <tr>
-            <th>名称</th>
-            <th>竞赛时长</th>
-            <th>任务限时</th>
-            <th>比赛机会</th>
-            <th>提交次数</th>
-            <th>默认机器人</th>
-            <th>默认程序</th>
-            <th>尺寸</th>
-            <th>重量</th>
-            <th>零件数</th>
+            <th class="text-center">名称</th>
+            <th class="text-center">竞赛时长</th>
+            <th class="text-center">任务限时</th>
+            <th class="text-center">比赛机会</th>
+            <th class="text-center">提交次数</th>
+            <th class="text-center">默认机器人</th>
+            <th class="text-center">默认程序</th>
+            <th class="text-center">尺寸</th>
+            <th class="text-center">重量</th>
+            <th class="text-center">零件数</th>
+            <th class="text-center">可能用途</th>
           </tr>
         </thead>
         <tbody id="configTable">
           <tr>
-            <td>nsvrc无人驾驶技能赛初赛-初中</td>
+            <td class="text-center" colspan="11">拖几个场景目录试试</td>
+            <!-- <td>nsvrc无人驾驶技能赛初赛-初中</td>
             <td>36000</td>
             <td>140</td>
             <td>1</td>
@@ -57,14 +54,15 @@
             <td>是</td>
             <td>10</td>
             <td>3000</td>
-            <td>100</td>
+            <td>100</td> -->
           </tr>
         </tbody>
       </table>
+
     </div>
   </div>
   <div class="container" id="debug">
-    
+
 
   </div>
   <!-- <h1>Hello World!</h1>
@@ -78,7 +76,7 @@
 
   <script>
     // You can also require other files to run in this process
-     require('./renderer.js')
+    require('./renderer.js')
     // 以下4行使能正确加载 jquery, 使 bootstrap.js 能正常运行
     window.nodeRequire = require;
     delete window.require;
@@ -89,7 +87,7 @@
   <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <!-- <script type="text/javascript" src="renderern.js"></script> -->
-  
+
   <!-- <script type="text/javascript" src="js/index.js"></script> -->
 </body>
 

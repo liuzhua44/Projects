@@ -2,6 +2,7 @@
 const { app, BrowserWindow } = require('electron')
 const { ipcMain } = require('electron')
 var fs = require('fs')
+var tinify = require("tinify");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -80,7 +81,14 @@ ipcMain.on("ondrag", (event, filePath) => {
     })
 
 })
+// 删除场景中多余的 1.png 2.png ...
+function delete18Png(dirPath){
 
+}
+// 压缩场景 minimap.png
+function compressMinimap(driPath){
+    // 体积大于 200kB 才去压缩
+}
 // 获取场景的所有信息
 function getInfo(dirPath) {
     var info = {};

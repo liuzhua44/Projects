@@ -72,6 +72,7 @@ ipcMain.on("ondrag", (event, filePath) => {
             if (aryFiles.indexOf('config.lua') != -1
                 && aryFiles.indexOf('world.xml') != -1) {
                 info = getInfo(filePath);
+                info.path = filePath;
                 info.isScene = true;
                 // 删除多余图片
                 info.deletePng = delete18Png(filePath);

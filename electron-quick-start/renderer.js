@@ -3,6 +3,7 @@
 // All of the Node.js APIs are available in this process.
 
 const { ipcRenderer, remote } = require('electron');
+var fs = require('fs')
 
 // console.log("index.js");
 document.getElementById("drag").onclick = (event) => {
@@ -25,18 +26,42 @@ document.getElementById("drag").ondrop = (event) => {
     console.log("renderer.js drag");
 }
 
+var mapList = [{ index: 0, filename: "" }]
+
 ipcRenderer.on("dragend", (event, arg) => {
     if (arg.isScene) {
-        var t = '<tr'
+        var watchInfo = {
+            index: mapList.length,
+            mapFile: arg.path + "\\minimap.png",
+        }
+
+        mapList.push(watchInfo);
+        addWatch(watchInfo.mapFile)
+
+        // var t = '<tr'
+        // if (arg.class == "竞赛" || arg.class == "竞赛 Python") {
+        //     t += " class='table-primary'>";
+        // }
+        // else if (arg.class == "模拟") {
+        //     t += " class='table-warning'>";
+        // }
+        // else {
+        //     t += ">";
+        // }
+
+        var h = '<td class="text-center '
         if (arg.class == "竞赛" || arg.class == "竞赛 Python") {
-            t += " class='table-primary'>";
+            h += ' text-primary">' + arg.class + '</td>';
         }
         else if (arg.class == "模拟") {
-            t += " class='table-warning'>";
+            h += ' text-success">' + arg.class + '</td>';
         }
         else {
-            t += ">";
+            h += '">' + arg.class + '</td>';
         }
+        console.log(h);
+
+        var t = '<tr>';
         t += '<td>' + arg.sceneName + '</td>';
         t += '<td class="text-right">' + arg["总时间"] + '</td>';
         t += '<td class="text-right">' + arg["任务限时"] + '</td>';
@@ -47,9 +72,10 @@ ipcRenderer.on("dragend", (event, arg) => {
         t += '<td class="text-right">' + arg.RobotMaxSize + '</td>';
         t += '<td class="text-right">' + arg.RobotMaxWeight + '</td>';
         t += '<td class="text-right">' + arg.RobotMaxModelNum + '</td>';
-        t += '<td class="text-center">' + arg.class + '</td>';
+        //t += '<td class="text-center">' + arg.class + '</td>';
+        t += h;
         t += '<td class="text-center">' + (arg.deletePng ? "已删" : "--") + '</td>';
-        t += '<td class="text-center">' + (arg.compressMap ? "正在压缩" : "无需压缩") + '</td>';
+        t += '<td class="text-center mapMsg' + watchInfo.index + '">' + (arg.compressMap ? "正在压缩" : "--") + '</td>';
         t += "</tr>"
         $("#configTable").append(t);
     }
@@ -57,3 +83,17 @@ ipcRenderer.on("dragend", (event, arg) => {
         // 不是场景目录处理
     }
 })
+
+addWatch = function (mapFile) {
+    fs.watch(mapFile, function (eventType, filename) {
+        var index = 0;
+        for (var i = 0; i < mapList.length; i++) {
+            if (mapList[i].mapFile == mapFile) {
+                index = i;
+            }
+        }
+        //console.log("监视压缩：", index, mapFile)
+        $(".mapMsg" + index).html("压缩完成")
+        $(".mapMsg" + index).addClass("text-primary")
+    })
+}

@@ -166,3 +166,18 @@ function getKeyValue(strFile, strKey) {
     var v = strFile.slice(d2 + 1, d3);
     return v;
 }
+
+////////////////// EXCEL
+ipcMain.on("excelOndrag", (event, path) => {
+    console.log(path);
+    fs.stat(path, function (err, stat) {
+        console.log(err);
+        console.log(stat)
+        // if (stat.isDirectory()) {
+        // }
+        // else if (stat.isFile()) {
+        //     var file = fs.readdirSync(path);
+        //     console.log(file);
+        // }
+    })
+})

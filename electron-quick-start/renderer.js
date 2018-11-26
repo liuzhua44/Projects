@@ -23,7 +23,7 @@ document.getElementById("drag").ondrop = (event) => {
     for (var i = 0; i < event.dataTransfer.files.length; i++) {
         ipcRenderer.send("ondrag", event.dataTransfer.files[i].path);
     }
-    console.log("renderer.js drag");
+    //console.log("renderer.js drag");
 }
 
 var mapList = [{ index: 0, filename: "" }]
@@ -59,7 +59,7 @@ ipcRenderer.on("dragend", (event, arg) => {
         else {
             h += '">' + arg.class + '</td>';
         }
-        console.log(h);
+        //console.log(h);
 
         var t = '<tr>';
         t += '<td>' + arg.sceneName + '</td>';
@@ -96,4 +96,24 @@ addWatch = function (mapFile) {
         $(".mapMsg" + index).html("压缩完成")
         $(".mapMsg" + index).addClass("text-primary")
     })
+}
+
+//////////////////// EXCEL 处理
+document.getElementById("excelDrag").ondragover = (event) => {
+    event.preventDefault();
+}
+document.getElementById("excelDrag").ondrop = (event) => {
+    event.preventDefault();
+    var file = event.dataTransfer.files[0];
+    var path = file.path;
+    if(file.type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+        console.log(file);
+        console.log(path);
+        ipcRenderer.send("excelOndrag", path);
+    }
+    // $("#configTable").empty();
+    // for (var i = 0; i < event.dataTransfer.files.length; i++) {
+    //     ipcRenderer.send("ondrag", event.dataTransfer.files[i].path);
+    // }
+    //console.log("renderer.js drag");
 }

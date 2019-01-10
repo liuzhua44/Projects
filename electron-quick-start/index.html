@@ -14,7 +14,7 @@
   </style> -->
 </head>
 
-<body>
+<body onload="menu()">
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">小麻雀</a>
     <input class="form-control form-control-dark w-100" type="text" placeholder="别搜，没用" aria-label="Search">
@@ -30,9 +30,9 @@
       <!-- 左侧菜单 -->
       <nav class="col-md-2 d-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky">
-          <ul class="nav flex-column">
+          <ul class="nav flex-column" id="menu">
             <li class="nav-item">
-              <a class="nav-link active" href="#">
+              <a class="nav-link active" href="#" data-page="pageSceneConfig">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
                   <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -42,7 +42,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="#" data-page="compressImg">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                   <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
@@ -184,16 +184,16 @@
               <thead>
                 <tr>
                   <th class="text-center">名称</th>
-                  <th class="text-center">时长</th>
-                  <th class="text-center">限时</th>
-                  <th class="text-center">机会</th>
-                  <th class="text-center">提交</th>
-                  <th class="text-center">机器人</th>
-                  <th class="text-center">程序</th>
-                  <th class="text-center">尺寸</th>
-                  <th class="text-center">重量</th>
-                  <th class="text-center">零件</th>
-                  <th class="text-center">用途</th>
+                  <th class="text-right">时长</th>
+                  <th class="text-right">限时</th>
+                  <th class="text-right">机会</th>
+                  <th class="text-right">提交</th>
+                  <th class="text-left">机器人</th>
+                  <th class="text-left">程序</th>
+                  <th class="text-right">尺寸</th>
+                  <th class="text-right">重量</th>
+                  <th class="text-right">零件</th>
+                  <th class="text-left">用途</th>
                   <th class="text-center">删8图</th>
                   <th class="text-center">压缩地图</th>
                 </tr>
@@ -201,6 +201,12 @@
               <tbody id="configTable"></tbody>
             </table>
 
+          </div>
+        </div>
+
+        <div id="compressImg" style="display:none;">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2" style="font-weight: 100;">压缩图片</h1>
           </div>
         </div>
 

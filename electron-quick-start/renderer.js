@@ -38,17 +38,6 @@ ipcRenderer.on("dragend", (event, arg) => {
         mapList.push(watchInfo);
         addWatch(watchInfo.mapFile)
 
-        // var t = '<tr'
-        // if (arg.class == "竞赛" || arg.class == "竞赛 Python") {
-        //     t += " class='table-primary'>";
-        // }
-        // else if (arg.class == "模拟") {
-        //     t += " class='table-warning'>";
-        // }
-        // else {
-        //     t += ">";
-        // }
-
         var h = '<td class="text-center '
         if (arg.class == "竞赛" || arg.class == "竞赛 Python") {
             h += ' text-primary">' + arg.class + '</td>';

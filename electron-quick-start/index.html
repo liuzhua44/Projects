@@ -52,7 +52,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="#" data-page="pageGameAccount">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
                   <circle cx="9" cy="21" r="1"></circle>
@@ -63,7 +63,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="#" data-page="pageGameRoom" >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -74,7 +74,7 @@
                 竞赛房间处理
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2">
@@ -95,7 +95,7 @@
                 </svg>
                 Integrations
               </a>
-            </li>
+            </li> -->
           </ul>
 
           <!-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -168,6 +168,7 @@
 
       <!-- 内容 -->
       <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+        <!-- 查看场景配置 -->
         <div id="pageSceneConfig">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2" style="font-weight: 100;">查看场景配置</h1>
@@ -204,17 +205,32 @@
           </div>
         </div>
 
+        <!-- 压缩图片 -->
         <div id="compressImg" style="display:none;">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2" style="font-weight: 100;">压缩图片</h1>
           </div>
         </div>
 
+        
+        <!-- 竞赛账号处理 -->
+        <div id="pageGameAccount" style="display:none;">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2" style="font-weight: 100;">竞赛账号处理</h1>
+          </div>
+        </div>
+
+        <!-- 竞赛房间处理 -->
+        <div id="pageGameRoom" style="display:none;">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2" style="font-weight: 100;">竞赛房间处理</h1>
+          </div>
+        </div>
+
       </main>
 
 
-      </main>
-      <main2 role="main2" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <main2 role="main2" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="display: none;">
         <!-- <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
           <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
             <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
@@ -261,7 +277,7 @@
     </div>
 
   </div>
-  <div class="container-fluid">
+  <div class="container-fluid" style="display: none;">
     <div class="row">
       <div class="col col-lg-12" style="padding-left:30px;padding-right:30px;">
         <h1>Excel</h1>

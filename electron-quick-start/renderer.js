@@ -8,23 +8,18 @@ const {
 } = require('electron');
 var fs = require('fs')
 
+// 菜单处理
 menu = function () {
     $("#menu li a").bind("click", function (e) {
         $("#menu li a").removeClass("active")
         $(e.currentTarget).addClass("active")
-        var page = new Array()
         var alink = $("#menu li a")
-
         for (var i = 0; i < $("#menu li a").length; i++) {
             $("#" + $(alink[i]).attr("data-page")).hide()
         }
         $("#" + $(e.currentTarget).attr("data-page")).show()
-
     })
-
 }
-
-//menu();
 
 // console.log("index.js");
 document.getElementById("drag").onclick = (event) => {

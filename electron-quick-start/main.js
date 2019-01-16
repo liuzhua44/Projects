@@ -1,7 +1,13 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
-const { ipcMain } = require('electron')
+const {
+    app,
+    BrowserWindow
+} = require('electron')
+const {
+    ipcMain
+} = require('electron')
 var fs = require('fs')
+var path = require('path')
 var tinify = require("tinify");
 tinify.key = "wVQivOIO4uqxC8iACvEZMAYiug6H5fkx";
 
@@ -11,7 +17,10 @@ let mainWindow
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 1600, height: 1000 })
+    mainWindow = new BrowserWindow({
+        width: 1600,
+        height: 1000
+    })
 
     // and load the index.html of the app.
     mainWindow.loadFile('index.html')
@@ -69,8 +78,8 @@ ipcMain.on("ondrag", (event, filePath) => {
             var aryFiles = fs.readdirSync(filePath);
             var info;
             // 是否场景目录
-            if (aryFiles.indexOf('config.lua') != -1
-                && aryFiles.indexOf('world.xml') != -1) {
+            if (aryFiles.indexOf('config.lua') != -1 &&
+                aryFiles.indexOf('world.xml') != -1) {
                 info = getInfo(filePath);
                 info.path = filePath;
                 info.isScene = true;
@@ -78,8 +87,7 @@ ipcMain.on("ondrag", (event, filePath) => {
                 info.deletePng = delete18Png(filePath);
                 // 压缩 map
                 info.compressMap = compressMinimap(filePath);
-            }
-            else {
+            } else {
                 info.isScene = false;
             }
             event.sender.send("dragend", info);
@@ -127,7 +135,8 @@ function getInfo(dirPath) {
     // 场景配置
     var item = ["总时间", "任务限时", "比赛机会次数", "任务小结束提交次数",
         "IsUseDefaultRobot", "IsUseDefaultCtl",
-        "RobotMaxSize", "RobotMaxWeight", "RobotMaxModelNum"];
+        "RobotMaxSize", "RobotMaxWeight", "RobotMaxModelNum"
+    ];
     var configFile = fs.readFileSync(dirPath + "/config.lua", 'utf8');
     for (var i = 0; i < item.length; i++) {
         info[item[i]] = getKeyValue(configFile, item[i]);
@@ -143,22 +152,20 @@ function getInfo(dirPath) {
     if (info.IsUseDefaultRobot == "true") {
         if (info["比赛机会次数"] > 5) {
             info.class = "模拟";
-        }
-        else {
+        } else {
             if (info.DefaultVplName.indexOf("py") == -1) {
                 info.class = "竞赛";
-            }
-            else {
+            } else {
                 info.class = "竞赛 Python";
             }
         }
-    }
-    else {
+    } else {
         info.class = "练习";
     }
 
     return info;
 }
+
 function getKeyValue(strFile, strKey) {
     var d1 = strFile.lastIndexOf(strKey)
     var d2 = strFile.indexOf("=", d1);
@@ -166,6 +173,25 @@ function getKeyValue(strFile, strKey) {
     var v = strFile.slice(d2 + 1, d3);
     return v;
 }
+
+// --------------------------------------------------------------------------------
+//                                  压缩图片 
+// --------------------------------------------------------------------------------
+ipcMain.on("onCompressDrag", (event, filePath) => {
+    var info = path.parse(filePath);
+    // 仅处理 .png 和 .jpg 文件
+    if (info.ext.toLowerCase() == ".png" || info.ext.toLowerCase() == ".jpg") {
+        info.filePath = filePath;
+        info.size = fs.statSync(filePath).size;
+        // 调用 tinify 压缩接口，压缩后覆盖原始文件
+        var source = tinify.fromFile(filePath);
+        source.toFile(filePath);
+        // 向前端回发消息
+        event.sender.send("compressDragEnd", info);
+    } else {
+        console.log("非 .png 或 .jpg 文件不能压缩");
+    }
+})
 
 ////////////////// EXCEL
 ipcMain.on("excelOndrag", (event, path) => {

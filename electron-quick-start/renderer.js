@@ -136,7 +136,82 @@ addWatch = function (mapFile) {
     })
 }
 
+// --------------------------------------------------------------------------------
+//                                  压缩图片 
+// --------------------------------------------------------------------------------
+document.getElementById("compressDrag").ondragover = (event) => {
+    event.preventDefault();
+}
+// 拖放事件
+document.getElementById("compressDrag").ondrop = (event) => {
+    event.preventDefault();
+    // 收到的文件发给后台处理
+    for (var i = 0; i < event.dataTransfer.files.length; i++) {
+        ipcRenderer.send("onCompressDrag", event.dataTransfer.files[i].path);
+    }
+}
+// 收到后台处理结果
+var compressIndex = 0;
+ipcRenderer.on("compressDragEnd", (event, info) => {
+    info.compressIndex = compressIndex;
+    // 准备显示在表格中
+    var h = '<tr class="compressIndex' + compressIndex + '">'
+    h += '<td>' + info.base + '</td>';
+    h += '<td class="text-right">' + Math.ceil(info.size / 1024) + " KB</td>"
+    h += '<td style="width:30%">\
+            <div class="progress">\
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"\
+                aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 1%"></div>\
+            </div>\
+           </td>';
+    h += '<td class="compressNewSize text-right"></td>';
+    h += '<td class="compressInfo">压缩中 ...</td>'
+    $("#compressTable").append(h);
+    // 绑定监听事件
+    compressImgWatch(info)
+    compressIndex++;
+})
+// 监听文件更改
+compressImgWatch = function (info) {
+    var progress = $(".compressIndex" + info.compressIndex).find(".progress-bar")
+    // 显示假进度
+    var tag = window.setInterval(function () {
+        var value = parseInt(progress.attr("aria-valuenow"));
+        // 按压缩 500KB 的文件约需 10 秒种，每 200ms 改变一次进度，计算每次增量
+        var t = info.size / 1024 / 500 * 10; // 按 500KB 需 10 秒，计算此文件需约 N 秒，最少为 2 秒
+        if (t < 2) {
+            t = 2;
+        }
+        value += 100 / (t / 0.2); // 计算每 200ms 更新一次，每次更新多少进度
+        if (value > 100) {
+            value = 100;
+        }
+        progress.attr("aria-valuenow", value)
+        progress.width(value + "%");
+    }, 200 * 1)
+    // 监听到压缩完成后处理
+    fs.watch(info.filePath, function (eventType, fileName) {
+        // 改变进度条样式
+        progress.removeClass("progress-bar-striped")
+            .removeClass("progress-bar-animated")
+            .addClass("bg-success")
+            .width("100%");
+        // 取消定时器
+        window.clearInterval(tag);
+        // 计算新尺寸，及压缩率，和显示压缩完成消息
+        var newSize = fs.statSync(info.filePath).size;
+        $(".compressIndex" + info.compressIndex).find(".compressNewSize").html(Math.ceil(newSize / 1024) + " KB");
+        var ratio = Math.floor((info.size - newSize) / info.size * 100);
+        $(".compressIndex" + info.compressIndex).find(".compressInfo").html('<span class="text-primary">压缩完成  -' + ratio + '%</span>')
+    })
+}
+// 页面按钮清空列表
+compressClearList = function () {
+    $("#compressTable").empty();
+}
+
 //////////////////// EXCEL 处理
+// ------------------------------ EXCEL 处理 ----------------------------------------
 document.getElementById("excelDrag").ondragover = (event) => {
     event.preventDefault();
 }

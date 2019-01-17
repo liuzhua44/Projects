@@ -193,8 +193,10 @@ ipcMain.on("onCompressDrag", (event, filePath) => {
     }
 })
 
-////////////////// EXCEL
-ipcMain.on("excelOndrag", (event, path) => {
+// --------------------------------------------------------------------------------
+//                                  竞赛账号处理 
+// --------------------------------------------------------------------------------
+ipcMain.on("gameAccountOndrag", (event, path) => {
     console.log(path);
     fs.stat(path, function (err, stat) {
         console.log(err);

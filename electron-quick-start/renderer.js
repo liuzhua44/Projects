@@ -10,6 +10,7 @@ var fs = require('fs')
 
 // 菜单处理
 menu = function () {
+    console.log("menumenumenumenu")
     $("#menu li a").bind("click", function (e) {
         $("#menu li a").removeClass("active")
         $(e.currentTarget).addClass("active")
@@ -210,19 +211,20 @@ compressClearList = function () {
     $("#compressTable").empty();
 }
 
-//////////////////// EXCEL 处理
-// ------------------------------ EXCEL 处理 ----------------------------------------
-document.getElementById("excelDrag").ondragover = (event) => {
+// --------------------------------------------------------------------------------
+//                                  竞赛账号处理 
+// --------------------------------------------------------------------------------
+document.getElementById("gameAccountDrag").ondragover = (event) => {
     event.preventDefault();
 }
-document.getElementById("excelDrag").ondrop = (event) => {
+document.getElementById("gameAccountDrag").ondrop = (event) => {
     event.preventDefault();
     var file = event.dataTransfer.files[0];
     var path = file.path;
     if (file.type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
         console.log(file);
         console.log(path);
-        ipcRenderer.send("excelOndrag", path);
+        //ipcRenderer.send("gameAccountOndrag", path);
     }
     // $("#configTable").empty();
     // for (var i = 0; i < event.dataTransfer.files.length; i++) {

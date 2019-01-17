@@ -42,7 +42,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#" data-page="compressImg">
+              <a class="nav-link " href="#" data-page="compressImg">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                   <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
@@ -52,7 +52,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" data-page="pageGameAccount">
+              <a class="nav-link active" href="#" data-page="pageGameAccount">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
                   <circle cx="9" cy="21" r="1"></circle>
@@ -206,7 +206,7 @@
         </div>
 
         <!-- 压缩图片 -->
-        <div id="compressImg">
+        <div id="compressImg" style="display:none;">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2" style="font-weight: 100;">压缩图片</h1>
           </div>
@@ -244,10 +244,52 @@
         </div>
 
         <!-- 竞赛账号处理 -->
-        <div id="pageGameAccount" style="display:none;">
+        <div id="pageGameAccount">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2" style="font-weight: 100;">竞赛账号处理</h1>
           </div>
+          <div class="row">
+            <div class="col-7">
+              名单文件
+            </div>
+            <div class="col-5">
+              <div id="gameAccountDrag" style="height:100px;border:1px dashed #666;border-radius: 5px;" class="row align-items-center text-center alert alert-success">
+                <h4 class="col">将<span class="text-primary"> 竞赛名单 </span>拖放到这里打开
+                  <br /><small style="font-size:0.65em">支持 .xlsx .xls 格式 / 小初高在同一张表中 / 必须有选手姓名、学校、组别信息 / 内容须在第 1 个工作表中
+                    / 不支持合并单元格</small></h>
+              </div>
+              <form class="form-inline">
+                <div class="form-group">
+                  <label for="gaAccountPrefix">前缀</label>
+                  <input type="password" id="gaAccountPrefix" class="form-control mx-sm-3  form-control-sm" placeholder="输入账号前缀"
+                    aria-describedby="gaAccountPrefixHelp">
+                  <small id="gaAccountPrefixHelp" class="text-muted">需在管理中心查找是否可用</small>
+                </div>
+                <div class="form-group">
+                  <label for="gaAccountPrefix">地区</label>
+                  <select class="form-control form-control-sm">
+                    <option>浙江省</option>
+                  </select>
+                  <select class="form-control form-control-sm">
+                    <option>杭州市</option>
+                  </select>
+                  <select class="form-control form-control-sm">
+                    <option>西湖区</option>
+                  </select>
+
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              导入账号
+            </div>
+            <div class="col-6">
+              打印账号
+            </div>
+          </div>
+
         </div>
 
         <!-- 竞赛房间处理 -->
@@ -295,6 +337,9 @@
   </script>
   <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/xlsx.full.min.js"></script>
+
+  <script type="text/javascript" src="renderer.js"></script>
 </body>
 
 </html>

@@ -249,8 +249,8 @@
             <h1 class="h2" style="font-weight: 100;">竞赛账号处理</h1>
           </div>
           <div class="row">
-            <div class="col-7">
-              名单文件
+            <div class="col-7" style="height:300px;overflow: auto;">
+              <div id="gameAccountSrcTable"></div>
             </div>
             <div class="col-5">
               <div id="gameAccountDrag" style="height:100px;border:1px dashed #666;border-radius: 5px;" class="row align-items-center text-center alert alert-success">
@@ -276,7 +276,16 @@
                   <select class="form-control form-control-sm">
                     <option>西湖区</option>
                   </select>
-
+                </div>
+                <div class="form-group">
+                  <label for="gaHeaderNumber">标题行数</label>
+                  <select class="form-control form-control-sm">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
                 </div>
               </form>
             </div>
@@ -284,9 +293,41 @@
           <div class="row">
             <div class="col-6">
               导入账号
+              <table class="table table-hover table-sm">
+                <thead>
+                  <tr>
+                    <th class="text-center">用户账号</th>
+                    <th class="text-center">用户密码</th>
+                    <th class="text-center">真实姓名</th>
+                    <th class="text-center">性别</th>
+                    <th class="text-center">学校</th>
+                    <th class="text-center">年级</th>
+                    <th class="text-center">省份</th>
+                    <th class="text-center">市</th>
+                    <th class="text-center">区县</th>
+                  </tr>
+                </thead>
+                <tbody id="gaImportTable">
+                </tbody>
+              </table>
             </div>
             <div class="col-6">
               打印账号
+              <table class="table table-hover table-sm">
+                  <thead>
+                    <tr>
+                      <th class="text-center">组别</th>
+                      <th class="text-center">真实姓名</th>
+                      <th class="text-center">学校</th>
+                      <th class="text-center">竞赛账号</th>
+                      <th class="text-center">竞赛账号</th>
+                      <th class="text-center">密码</th>
+                      <th class="text-center">密码</th>
+                    </tr>
+                  </thead>
+                  <tbody id="gaPrintTable">
+                  </tbody>
+                </table>
             </div>
           </div>
 
@@ -339,7 +380,7 @@
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/xlsx.full.min.js"></script>
 
-  <script type="text/javascript" src="renderer.js"></script>
+  <!-- <script type="text/javascript" src="renderer.js"></script> -->
 </body>
 
 </html>

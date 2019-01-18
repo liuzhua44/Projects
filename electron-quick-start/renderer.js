@@ -220,11 +220,11 @@ document.getElementById("gameAccountDrag").ondragover = (event) => {
 document.getElementById("gameAccountDrag").ondrop = (event) => {
     event.preventDefault();
     var file = event.dataTransfer.files[0];
-    var path = file.path;
+    //var path = file.path;
     if (file.type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
         console.log(file);
-        console.log(path);
-        //ipcRenderer.send("gameAccountOndrag", path);
+        //console.log(path);
+        ipcRenderer.send("gameAccountOndrag", file.path);
     }
     // $("#configTable").empty();
     // for (var i = 0; i < event.dataTransfer.files.length; i++) {
@@ -232,3 +232,102 @@ document.getElementById("gameAccountDrag").ondrop = (event) => {
     // }
     //console.log("renderer.js drag");
 }
+// ipcRenderer.on("gameAccountOndragEnd",(event, data)=>{
+//     console.log(data)
+//     var htmlOut = document.getElementById("gameAccountSrcTable");
+//     htmlOut.innerHTML += data
+//     $("#gameAccountSrcTable").find("table").addClass("table")
+//         .addClass("table")
+//         .addClass("table-hover")
+//         .addClass("table-sm");
+// })
+ 
+ipcRenderer.on("gameAccountOndragEnd", (event, info) => {
+    var area = document.getElementById("gameAccountSrcTable");
+    area.innerHTML += info.tableHtml;
+    $("#gameAccountSrcTable").find("table")
+        .addClass("table")
+        .addClass("table-hover")
+        .addClass("table-sm");
+    console.log(info.tableJson)
+
+    // 各列意义
+    var option = {
+        headerNumber = 2,
+        columnInfo = {
+            realName = 0,
+            sex = 1,
+            school = 2,
+            grade = 3,
+        },
+        accountPrefix = "fy18",
+        area = ["浙江省", "杭州市", "富阳区"],
+
+    }
+   // createImportAccount(info.tableJson, option);
+})
+
+// createImportAccount = function (dataJson, columnInfo) {
+//     var importJson = {};
+//     for (var i = 0; i < dataJson.length; i++) {
+//         var info = dataJson[i];
+//         var row = new Array();
+//         row.push(option.accountPrefix+"xx"+(i+1))       // 账号
+//         row.push(Math.random(1000,9999));               // 密码
+//         row.push(info[option.columnInfo.realName]);     // 姓名
+//         row.push("男");
+//         row.push(info[option.columnInfo.school]);     // 学校
+//         row.push("五年级");     // 年级
+//         row.push(info[option.area[0]]);     // 省
+//         row.push(info[option.area[1]]);     // 省
+//         row.push(info[option.area[2]]);     // 省
+        
+//         var html = '<tr>'
+//         for(var j= 0;j<row.length;j++){
+//             html += '<td>'+row[j]+'</td>'
+//         }
+//         html += "</tr>"
+//         $("#gaImportTable").append(html);
+
+//     }
+// }
+
+// fenxi = function () {
+//     // 行列转换
+//     var columnData = new Array();
+//     for (var i = 0; i < info.tableJson.length; i++) {
+//         for (var j = 0; j < info.tableJson[i].length; j++) {
+//             if (typeof (columnData[j]) == "undefined") {
+//                 columnData.push(new Array());
+//             }
+//             columnData[j].push(info.tableJson[i][j].trim())
+//         }
+//     }
+//     console.log(columnData);
+//     // 分析各列意义
+//     for (var i = 0; i < columnData.length; i++) {
+//         // 统计字数及出现次数
+//         var wordNumber = new Array();
+//         for (var j = 0; j < columnData[i].length; j++) {
+//             var wl = columnData[i][j].trim().length;
+//             if (typeof (wordNumber["wn_" + wl]) == "undefined") {
+//                 wordNumber["wn_" + wl] = 0;
+//             }
+//             wordNumber["wn_" + wl]++;
+//         }
+//         console.log("字数", wordNumber)
+
+//         // 统计重复项及出次数
+//         var repeatNumber = new Array();
+//         for (var j = 0; j < columnData[i].length; j++) {
+//             if (typeof (repeatNumber["rn_" + columnData[i][j]]) == "undefined") {
+//                 repeatNumber["rn_" + columnData[i][j]] = 0;
+//             }
+//             repeatNumber["rn_" + columnData[i][j]] += 1;
+//         }
+//         console.log("重复", repeatNumber)
+
+//         // 统计各列包含内容
+//         var item = ["小", "初", "高", "学校", "中", "一", "二", "三", "四", "五", "六", "七", "八", "九", "1", "2", "3", "4", "5", "6", "7", "8", "9", ]
+//     }
+// }

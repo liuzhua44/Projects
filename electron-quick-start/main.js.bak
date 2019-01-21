@@ -10,7 +10,6 @@ var fs = require('fs')
 var path = require('path')
 var tinify = require("tinify");
 tinify.key = "wVQivOIO4uqxC8iACvEZMAYiug6H5fkx";
-var xlsx = require('xlsx');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -197,31 +196,16 @@ ipcMain.on("onCompressDrag", (event, filePath) => {
 // --------------------------------------------------------------------------------
 //                                  竞赛账号处理 
 // --------------------------------------------------------------------------------
-ipcMain.on("gameAccountOndrag", (event, filePath) => {
-    console.log("gameAccountOndrag")
-    console.log(filePath);
-
-    var wb = xlsx.readFile(filePath);
-    //var htmlOut = document.getElementById("gameAccountSrcTable");
-console.log(wb.SheetNames[0])
-    var info = {}
-    var htmlStr = xlsx.utils.sheet_to_html(wb.Sheets[wb.SheetNames[0]],{editable:true});
-    var tableJson = xlsx.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:""});
-    info.htmlStr = htmlStr;
-    info.tableHtml = htmlStr;
-    info.tableJson = tableJson;
-    //htmlOut.innerHTML += htmlStr
-    //event.sender.send("gameAccountOndragEnd", htmlStr);
-    event.sender.send("gameAccountOndragEnd", info)
-
-    // fs.stat(path, function (err, stat) {
-    //     console.log(err);
-    //     console.log(stat)
-    //     // if (stat.isDirectory()) {
-    //     // }
-    //     // else if (stat.isFile()) {
-    //     //     var file = fs.readdirSync(path);
-    //     //     console.log(file);
-    //     // }
-    // })
+ipcMain.on("gameAccountOndrag", (event, path) => {
+    console.log(path);
+    fs.stat(path, function (err, stat) {
+        console.log(err);
+        console.log(stat)
+        // if (stat.isDirectory()) {
+        // }
+        // else if (stat.isFile()) {
+        //     var file = fs.readdirSync(path);
+        //     console.log(file);
+        // }
+    })
 })

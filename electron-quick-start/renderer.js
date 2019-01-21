@@ -332,7 +332,6 @@ createImportAccount = function (dataJson, option) {
         var info = dataJson[i];
         info.grade = getGrade(info); // 添加组别信息
         var row = new Array();
-        //row.push(getAccount(info));     // 账号
         row.push(getNextAccount(info.grade));
         row.push(parseInt(Math.random() * (9999 - 1000 + 1) + 1000, 10)); // 4 位随机密码
         row.push(info[option.columnInfo.realName]); // 姓名

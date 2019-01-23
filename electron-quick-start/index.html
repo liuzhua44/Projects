@@ -244,13 +244,16 @@
         </div>
 
         <!-- 竞赛账号处理 -->
-        <div id="pageGameAccount">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <div id="pageGameAccount" style="margin-top:10px;">
+          <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2" style="font-weight: 100;">竞赛账号处理</h1>
-          </div>
-          <div class="row">
-            <div class="col-7" style="height:300px;overflow: auto;">
-              <div id="gameAccountSrcTable"></div>
+          </div> -->
+          <div class="row" style="margin-bottom:20px;">
+            <div class="col-7 border2-right border-success">
+              <div class="text-center text-light bg-info">
+                <span>原始文件</span>
+              </div>
+              <div class="shadow" style="height:400px;overflow:auto;" id="gameAccountSrcTable"></div>
             </div>
             <div class="col-5">
               <div id="gameAccountDrag" style="height:100px;border:1px dashed #666;border-radius: 5px;" class="row align-items-center text-center alert alert-success">
@@ -288,32 +291,44 @@
                   </select>
                 </div>
               </form>
+              <div>
+                <button type="button" class="btn btn-outline-primary btn-sm">生成</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" onclick="saveImportExcle()">保存导入文件</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" onclick="savePrintExcle()">保存打印文件</button>
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-6">
-              导入账号
-              <table class="table table-hover table-sm">
-                <thead>
-                  <tr>
-                    <th class="text-center">用户账号</th>
-                    <th class="text-center">用户密码</th>
-                    <th class="text-center">真实姓名</th>
-                    <th class="text-center">性别</th>
-                    <th class="text-center">学校</th>
-                    <th class="text-center">年级</th>
-                    <th class="text-center">省份</th>
-                    <th class="text-center">市</th>
-                    <th class="text-center">区县</th>
-                  </tr>
-                </thead>
-                <tbody id="gaImportTable">
-                </tbody>
-              </table>
+          <div class="row" style="height:50%;">
+            <div class="col-6 border2-right border-success ">
+              <div class="text-center text-light bg-info">
+                <span>导入账号</span>
+              </div>
+              <div class="shadow" style="height:400px;overflow: auto;">
+                <table class="table table-hover table-sm">
+                  <thead>
+                    <tr>
+                      <th class="text-center">用户账号</th>
+                      <th class="text-center">用户密码</th>
+                      <th class="text-center">真实姓名</th>
+                      <th class="text-center">性别</th>
+                      <th class="text-center">学校</th>
+                      <th class="text-center">年级</th>
+                      <th class="text-center">省份</th>
+                      <th class="text-center">市</th>
+                      <th class="text-center">区县</th>
+                    </tr>
+                  </thead>
+                  <tbody id="gaImportTable">
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="col-6">
-              打印账号
-              <table class="table table-hover table-sm">
+              <div class="text-center text-light bg-info">
+                <span>打印账号</span>
+              </div>
+              <div class="shadow" style="height:400px;overflow: auto;">
+                <table class="table table-hover table-sm">
                   <thead>
                     <tr>
                       <th class="text-center">组别</th>
@@ -328,6 +343,7 @@
                   <tbody id="gaPrintTable">
                   </tbody>
                 </table>
+              </div>
             </div>
           </div>
 

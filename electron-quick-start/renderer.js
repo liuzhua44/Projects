@@ -461,6 +461,8 @@ saveImportExcle = function(){
 
 savePrintExcle = function(){
     var sheet = XLSX.utils.aoa_to_sheet(printJson);
+    sheet.A1.s = {fill:{patternType:"none", fgColor:{rgb:"FF000000"},bgColor:{rgb:"00FF0000"}}};
+    sheet.A1.v = "asdfasdf"
     openDownloadDialog(sheet2blob(sheet),"打印账号.xlsx")
 }
 
